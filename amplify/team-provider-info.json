@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-ifitnesstrackingapp-dev-13231-authRole",
+      "UnauthRoleArn": "arn:aws:iam::562773145274:role/amplify-ifitnesstrackingapp-dev-13231-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::562773145274:role/amplify-ifitnesstrackingapp-dev-13231-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-ifitnesstrackingapp-dev-13231-deployment",
+      "UnauthRoleName": "amplify-ifitnesstrackingapp-dev-13231-unauthRole",
+      "StackName": "amplify-ifitnesstrackingapp-dev-13231",
+      "StackId": "arn:aws:cloudformation:us-east-1:562773145274:stack/amplify-ifitnesstrackingapp-dev-13231/ad741a10-ec9a-11ee-b2bc-12d6ea305a53",
+      "AmplifyAppId": "d3hs147kus3ebn"
+    },
+    "categories": {
+      "auth": {
+        "ifitnesstrackingapp19b21328": {}
+      }
+    }
+  }
+}
