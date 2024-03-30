@@ -2,7 +2,7 @@ import { useState } from "react";
 import { UserGoals } from "../../domain/userGoals";
 import { toast } from "react-toastify";
 
-export const   useGoals = () => {
+export const useGoals = () => {
 	const [form, setForms] = useState<UserGoals>();
 	const [errors, setErrors] = useState<UserGoals>();
 	const [current, setCurrent] = useState(0);
