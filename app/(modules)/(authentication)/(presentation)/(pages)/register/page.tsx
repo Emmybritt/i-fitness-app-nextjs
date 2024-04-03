@@ -21,6 +21,12 @@ const Register = () => {
 						error={error?.email}
 					/>
 					<CustomInput
+						label="Full name"
+						placeholder="Enter your fullname"
+						onChange={(e) => handleChange("full_name", e.target.value, true)}
+						error={error?.full_name}
+					/>
+					<CustomInput
 						label="Username"
 						placeholder="Enter your Username"
 						onChange={(e) => handleChange("userName", e.target.value, true)}

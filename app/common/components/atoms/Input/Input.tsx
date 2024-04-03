@@ -11,9 +11,22 @@ interface CustomInput {
 	error?: string;
 	value?: string;
 	readOnly?: boolean;
+	prefix?: React.ReactNode;
+	suffix?: React.ReactNode;
 }
 
-export const CustomInput: React.FC<CustomInput> = ({ label, placeholder, type = "text", onChange, error, value, readOnly }) => {
+export const CustomInput: React.FC<CustomInput> = ({
+	label,
+	placeholder,
+	type = "text",
+	onChange,
+	error,
+	value,
+	readOnly,
+	className,
+	suffix,
+	prefix,
+}) => {
 	return (
 		<div className="w-full">
 			{label && (
@@ -25,18 +38,20 @@ export const CustomInput: React.FC<CustomInput> = ({ label, placeholder, type = 
 				<Input
 					readOnly={readOnly}
 					id={label}
-					className="h-[60px] w-[100%] text-lg"
+					className={`h-[60px] w-[100%] text-lg ${className}`}
 					value={value}
 					placeholder={placeholder}
 					type={type}
 					onChange={onChange}
+					prefix={prefix}
+					suffix={suffix}
 				/>
 			)}
 			{type === "password" && (
 				<Input.Password
 					readOnly={readOnly}
 					id={label}
-					className="h-[60px] w-[100%] text-lg"
+					className={`h-[60px] w-[100%] text-lg ${className}`}
 					value={value}
 					placeholder={placeholder}
 					type={type}

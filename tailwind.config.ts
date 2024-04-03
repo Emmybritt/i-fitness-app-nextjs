@@ -9,8 +9,11 @@ const config: Config = {
 				"gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
 			},
 			fontSize: {
-				normal: "clamp(1rem, 5vw, 3rem)",
-				headerText: "clamp(1rem, 2.7vw, 4rem)",
+				normal: "clamp(18px, 2vmin, 32px)",
+				headerText: "clamp(1rem, 2.7vw, 2.8rem)",
+			},
+			screens: {
+				mn: "1101px",
 			},
 		},
 	},

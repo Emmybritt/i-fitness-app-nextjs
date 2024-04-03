@@ -3,7 +3,7 @@ export interface UserGoals {
 	gender: string;
 	weight: string;
 	height: string;
-	vegeterian: boolean;
+	vegeterian: string;
 	country: string;
 	allergies: string;
 	disease: string;
