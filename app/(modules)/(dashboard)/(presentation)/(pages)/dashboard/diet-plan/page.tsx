@@ -1,3 +1,5 @@
+"use client";
+import { useOpenAiApi } from "@app/app/(modules)/(dashboard)/infrastructure/hooks/useOpenAiApi";
 import ItemCard from "@app/app/common/components/molecules/ItemCard/ItemCard";
 import { caloriesIntake } from "@app/app/common/constants/data";
 import CloseByRestaurant from "../../../molecules/CloseByRestaurant";
@@ -5,6 +7,8 @@ import DashboardHeader from "../../../molecules/DashboardHeader";
 import TodaysMeal from "../../../molecules/TodaysMeal";
 
 const DietPlan = () => {
+	const { restaurant } = useOpenAiApi();
+
 	return (
 		<div className="w-full px-[1.5rem] sm:px-[2rem] md:px-[4rem]">
 			<DashboardHeader currentPage="Diet Plan" pageTitle="Diet Plan" />
@@ -17,7 +21,7 @@ const DietPlan = () => {
 				</div>
 			</div>
 			<TodaysMeal />
-			<CloseByRestaurant />
+			<CloseByRestaurant restaurant={restaurant && restaurant?.slice(0, 2)} />
 		</div>
 	);
 };

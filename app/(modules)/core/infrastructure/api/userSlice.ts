@@ -13,13 +13,13 @@ const userSlice = createSlice({
 		setUser: (state, { payload }) => {
 			state.user = payload;
 		},
-		setLoading: (state, { payload }: { payload: boolean }) => {
+		setLoadingUserData: (state, { payload }: { payload: boolean }) => {
 			state.loading = payload;
 		},
 	},
 	extraReducers(builder) {},
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, setLoadingUserData } = userSlice.actions;
 
 export default userSlice.reducer;

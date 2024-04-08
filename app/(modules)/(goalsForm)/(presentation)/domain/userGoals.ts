@@ -9,3 +9,21 @@ export interface UserGoals {
 	disease: string;
 	goals: string;
 }
+
+export interface RecommendedMeal {
+	name: string;
+	type: string;
+	addons: string;
+}
+
+export interface RecommendedRestaurants {
+	name: string;
+	address: string;
+	ratings: number;
+}
+
+export interface RecommededWorkouts {
+	name: string;
+	rounds: string;
+	description: string;
+}

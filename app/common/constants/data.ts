@@ -16,6 +16,7 @@ export const mealPlanData = [
 	{ title: "Stirred fried Pasta", content: "Grilled Turkey and Salad", time: "Breakfast", calories: 300 },
 	{ title: "Spargetti Bolognese", content: "With onions and pepper", time: "Launch", calories: 500 },
 	{ title: "Fufu and Egusi Soup", content: "Cameroun peper and crayfish", time: "Dinner", calories: 255 },
+	{ title: "Fufu and Egusi Soup", content: "Cameroun peper and crayfish", time: "Dinner", calories: 255 },
 ];
 
 export const caloriesIntake = [
@@ -204,3 +205,49 @@ export const PiechartOption: EChartsOption = {
 		},
 	],
 };
+
+export const headerlinks = [
+	{
+		name: "About us",
+		to: "about",
+	},
+	{
+		name: "Services",
+		to: "services",
+	},
+	{
+		name: "Pricing plan",
+		to: "pricing",
+	},
+	{
+		name: "Contact",
+		to: "contact",
+	},
+];
+
+export const moreData = [
+	{ name: "Countries", count: "300" },
+	{ name: "Registered User", count: "2000+" },
+	{ name: "Goals Achieved", count: "15000" },
+];
+
+export const features = [
+	{
+		title: "Personalized Nutrition Plans",
+		description:
+			"Our platform offers customized meal plans tailored to your unique dietary preferences and fitness goals. Whether you're aiming to lose weight, build muscle, or simply maintain a balanced diet, our nutritionists curate delicious and nutritious recipes to keep you fueled and satisfied.",
+		icon: "/DietPlan.png",
+	},
+	{
+		title: "Dynamic Workout Regimens",
+		description:
+			"Say goodbye to cookie-cutter exercise routines. We understand that everyone's fitness journey is different, which is why we provide personalized workout plans designed to challenge and motivate you. From cardio to strength training, our expert trainers ensure you're on the right track to achieving your desired results.",
+		icon: "/images/Workout-bold.png",
+	},
+	{
+		title: "Calorie Tracking Made Easy",
+		description:
+			"With our intuitive calorie calculator, monitoring your daily intake and expenditure has never been simpler. Keep track of the calories you consume with our food diary feature and see the calories you burn during your workouts. Stay accountable and make informed choices to reach your fitness milestones.",
+		icon: "/calorisTracking.png",
+	},
+];

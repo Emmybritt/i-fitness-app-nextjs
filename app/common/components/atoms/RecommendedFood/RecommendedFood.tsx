@@ -21,7 +21,7 @@ const RecommendedFood: React.FC<RecommendedFoodProp> = ({ backgroundColor = "#69
 				{foodName}
 			</text>
 			<text x="8" y="86" fill="white" style={{ fontSize: 11 }}>
-				+ {addons}
+				{addons}
 			</text>
 			<text x="17" y="104" fill="white" style={{ fontSize: 14, fontWeight: 600 }}>
 				{time}

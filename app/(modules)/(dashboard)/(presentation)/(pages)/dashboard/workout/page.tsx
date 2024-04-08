@@ -7,8 +7,11 @@ import PostWorkSessions from "../../../molecules/PostWorkSessions";
 import RecommendedVideos from "../../../molecules/RecommendedVideos";
 import TodaysWorkout from "../../../molecules/TodaysWorkout";
 import UserAchievements from "../../../molecules/UserAchievemets";
+import { useGetRecommendedWorkout } from "@app/app/(modules)/(dashboard)/infrastructure/hooks/useGetRecommendedWorkout";
 
 const Workout = () => {
+	const { workouts } = useGetRecommendedWorkout();
+
 	return (
 		<div className="w-full px-[1.5rem] sm:px-[4rem]">
 			<DashboardHeader currentPage="Workout" pageTitle="" />
@@ -30,7 +33,7 @@ const Workout = () => {
 					<PostWorkSessions />
 				</div>
 			</div>
-			<TodaysWorkout />
+			<TodaysWorkout workouts={workouts && workouts?.slice(0, 6)} />
 		</div>
 	);
 };

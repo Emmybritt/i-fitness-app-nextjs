@@ -1,13 +1,19 @@
+"use client";
 import { RightOutlined } from "@ant-design/icons";
 import Card from "@app/app/common/components/atoms/Card/Card";
 import { todaysWorkout } from "@app/app/common/constants/data";
 import { Image } from "antd";
 import Link from "next/link";
+import { useGetRecommendedWorkout } from "../../infrastructure/hooks/useGetRecommendedWorkout";
+import { RecommededWorkouts } from "@app/app/(modules)/(goalsForm)/(presentation)/domain/userGoals";
 
 interface TodaysWorkoutProp {
 	showTitle?: boolean;
+	workouts: RecommededWorkouts[] | null;
+	setWorkout?: (workout: RecommededWorkouts) => void;
+	setCurrentIndex?: (index: number) => void;
 }
-const TodaysWorkout: React.FC<TodaysWorkoutProp> = ({ showTitle = true }) => {
+const TodaysWorkout: React.FC<TodaysWorkoutProp> = ({ showTitle = true, workouts, setWorkout, setCurrentIndex }) => {
 	return (
 		<div className="">
 			{showTitle && (
@@ -21,17 +27,24 @@ const TodaysWorkout: React.FC<TodaysWorkoutProp> = ({ showTitle = true }) => {
 
 			<div className="overflow-x-auto overflow-y-hidden whitespace-nowrap mb-[3rem]">
 				<div className="flex flex-row space-x-3">
-					{todaysWorkout.map((workout, _index: number) => (
-						<Card key={_index} className="w-[230px]">
-							<div className="flex flex-col items-center justify-center">
-								<Image src={workout.image} preview={false} alt={workout.name} />
-								<h3 className="font-semibold text-[#1E293B] text-[14px]">{workout.name}</h3>
-								<p className="text-[#6938EF] text-[12px] font-medium bg-[#F2FFFF] rounded-lg px-[1rem] py-[3px]">
-									{workout.measure}
-								</p>
-							</div>
-						</Card>
-					))}
+					{workouts &&
+						workouts.map((workout: RecommededWorkouts, _index: number) => (
+							<Card
+								key={_index}
+								className="min-w-[230px] cursor-pointer"
+								onClick={() => {
+									setWorkout && setWorkout(workout);
+									setCurrentIndex && setCurrentIndex(_index);
+								}}>
+								<div className="flex flex-col items-center justify-center">
+									<Image src={"/images/userStretch.png"} preview={false} alt={workout.name} />
+									<h3 className="font-semibold text-[#1E293B] text-[14px]">{workout.name}</h3>
+									<p className="text-[#6938EF] text-[12px] font-medium bg-[#F2FFFF] rounded-lg px-[1rem] py-[3px]">
+										{workout.rounds}
+									</p>
+								</div>
+							</Card>
+						))}
 				</div>
 			</div>
 		</div>

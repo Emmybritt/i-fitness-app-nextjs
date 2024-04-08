@@ -2,16 +2,20 @@ import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./api/apiSlice";
 import userSlice from "./api/userSlice";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { OpenaiRecomendationApiSlice } from "../../(dashboard)/infrastructure/providers/api/openaiRecommendationApiSlice";
 
 export const store = configureStore({
 	reducer: {
 		userSlice: userSlice,
 		[apiSlice.reducerPath]: apiSlice.reducer,
+		[OpenaiRecomendationApiSlice.reducerPath]: OpenaiRecomendationApiSlice.reducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({
 			serializableCheck: false,
-		}).concat(apiSlice.middleware),
+		})
+			.concat(apiSlice.middleware)
+			.concat(OpenaiRecomendationApiSlice.middleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
