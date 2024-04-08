@@ -3,6 +3,7 @@ import { Button } from "@app/app/common/components/atoms/Button/Button";
 import { CustomInput } from "@app/app/common/components/atoms/Input/Input";
 import { useSearchParams } from "next/navigation";
 import { useAuth } from "../../../infrastructure/hooks/useAuth";
+import { withAuthenticator } from "@aws-amplify/ui-react";
 
 const ConfirmOTp = () => {
 	const { error, loading, setConfirmOtp, confirmOtpSignUp, resendOtp } = useAuth();
@@ -36,4 +37,4 @@ const ConfirmOTp = () => {
 	);
 };
 
-export default ConfirmOTp;
+export default withAuthenticator(ConfirmOTp);

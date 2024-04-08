@@ -1,4 +1,3 @@
-"use client";
 import { Image } from "antd";
 
 function AuthLayout({ children }: { children: React.ReactNode }) {
