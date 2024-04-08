@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Button } from "./common/components/atoms/Button/Button";
 import Footer from "./common/components/atoms/Footer/Footer";
 import Banner from "./common/components/molecules/Banner/Banner";
@@ -15,7 +16,9 @@ function Home() {
 					Ready to take control of your health and transform your life? Sign up now and embark on a journey towards a
 					fitter, healthier you!
 				</h3>
-				<Button label="Create an account now" className="bg-white w-[345px] text-[#6938EF]" />
+				<Link href="/login" className="bg-white w-[345px] text-[#6938EF]">
+					Create an account now
+				</Link>
 			</div>
 			<Footer />
 		</div>
