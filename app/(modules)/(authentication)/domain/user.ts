@@ -8,6 +8,3 @@ export interface UserRegisteration {
 
 export type LoginUser = Pick<UserRegisteration, "email" | "password">;
 
-export interface ConfirmOtpCode extends Pick<UserRegisteration, "userName"> {
-	confirmationCode: string;
-}

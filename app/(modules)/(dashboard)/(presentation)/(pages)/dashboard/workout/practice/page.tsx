@@ -1,11 +1,39 @@
+"use client";
 import Card from "@app/app/common/components/atoms/Card/Card";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DashboardHeader from "../../../../molecules/DashboardHeader";
 import TodaysWorkout from "../../../../molecules/TodaysWorkout";
 import { Button } from "@app/app/common/components/atoms/Button/Button";
-import { Image } from "antd";
+import { Image, Spin } from "antd";
+import { useGetRecommendedWorkout } from "@app/app/(modules)/(dashboard)/infrastructure/hooks/useGetRecommendedWorkout";
+import { RecommededWorkouts } from "@app/app/(modules)/(goalsForm)/(presentation)/domain/userGoals";
 
-const page = () => {
+const WorkoutPratice = () => {
+	const [currentWorkoutIndex, setCurrentWorkoutIndex] = useState(1);
+	const [currentWorkout, setCurrentWorkout] = useState<RecommededWorkouts | null>(null);
+	const { workouts, isFetching } = useGetRecommendedWorkout();
+	useEffect(() => {
+		if (workouts) {
+			setCurrentWorkout(workouts[currentWorkoutIndex]);
+		}
+	}, [workouts, currentWorkoutIndex]);
+
+	function handleNextWorkout() {
+		if (workouts && workouts?.length - 1 === currentWorkoutIndex) {
+			return;
+		} else if (currentWorkoutIndex === 0) {
+			return;
+		}
+		setCurrentWorkoutIndex(currentWorkoutIndex + 1);
+	}
+	if (isFetching) {
+		return (
+			<div className="flex items-center justify-center h-[80vh]">
+				<Spin size="large" />
+			</div>
+		);
+	}
+
 	return (
 		<div>
 			<div className="w-full px-[1.5rem] sm:px-[4rem]">
@@ -13,26 +41,32 @@ const page = () => {
 				<Card className="w-[100%] h-[351px]">
 					<Button label="20:00" className="bg-[#F2ECFE] w-[113px] text-[#6938EF]" />
 					<div className="flex items-center">
-						<Image src="/images/backStretch.png" height={200} width={203.46} alt="back stretch icon" />
-						<div>
-							<h3>Yoga</h3>
-							<p>Burn 200kCAL</p>
-							<p>
-								Wear comfortable clothing that allows for easy movement. You can practice yoga
-								barefoot or wear non-slip socks. Choose Your Yoga Mat: Use a yoga mat to provide
-								cushioning and stability during poses. Place it on a flat surface. Remain in this
-								position for 20 minutes
-							</p>
-							<Button label="Next" className="w-[170px]" />
+						<Image
+							src="/userExcersice.png"
+							preview={false}
+							height={200}
+							className="w-[203.66px]"
+							alt="back stretch icon"
+						/>
+						<div className="space-y-2">
+							<h3 className="text-[32px] font-semibold">{currentWorkout?.name}</h3>
+							<p>{currentWorkout?.rounds}</p>
+							<p className="text-[16px]">{currentWorkout?.description}</p>
+							<Button label="Next" className="w-[170px] text-white" onClick={handleNextWorkout} />
 						</div>
 					</div>
 				</Card>
 				<div className="mt-[2rem]">
-					<TodaysWorkout showTitle={false} />
+					<TodaysWorkout
+						showTitle={false}
+						workouts={workouts}
+						setWorkout={setCurrentWorkout}
+						setCurrentIndex={setCurrentWorkoutIndex}
+					/>
 				</div>
 			</div>
 		</div>
 	);
 };
 
-export default page;
+export default WorkoutPratice;

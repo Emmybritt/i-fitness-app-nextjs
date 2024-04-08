@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import StoreProvider from "./(modules)/core/infrastructure/provider";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
+import { UserProvider } from "./(modules)/(dashboard)/infrastructure/providers/UserContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,8 +35,11 @@ export default function RootLayout({
 					shadow="0 0 10px #2299DD,0 0 5px #2299DD"
 				/>
 				<ToastContainer />
+
 				<StoreProvider>
-					<AntdRegistry>{children}</AntdRegistry>
+					<UserProvider>
+						<AntdRegistry>{children}</AntdRegistry>
+					</UserProvider>
 				</StoreProvider>
 			</body>
 		</html>
