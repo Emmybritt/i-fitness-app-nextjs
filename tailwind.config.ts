@@ -10,7 +10,10 @@ const config: Config = {
 			},
 			fontSize: {
 				normal: "clamp(18px, 2vmin, 32px)",
-				headerText: "clamp(1rem, 2.7vw, 2.8rem)",
+				headerText: "clamp(4rem, 8vw, 6rem)",
+				bannerText: "clamp(30px, 8vw, 64px)",
+				featureText: "clamp(30px, 5vw, 58px)",
+				controlTxt: "clamp(16px, 4vw, 36px)",
 			},
 			screens: {
 				mn: "1101px",

@@ -1,23 +1,24 @@
 import { UserGoals } from "@app/app/(modules)/(goalsForm)/(presentation)/domain/userGoals";
-import { setUser } from "@app/app/(modules)/core/infrastructure/api/userSlice";
+import { setUser, setLoadingUserData } from "@app/app/(modules)/core/infrastructure/api/userSlice";
 import { useAppDispatch } from "@app/app/(modules)/core/infrastructure/store";
 import config from "@app/app/amplifyconfiguration.json";
 import { INPUTS } from "@app/app/common/constants/data";
 import { Amplify } from "aws-amplify";
-import { confirmSignUp, fetchUserAttributes, resendSignUpCode, signIn, signOut, signUp, updateUserAttributes,  } from "aws-amplify/auth";
+import { confirmSignUp, fetchUserAttributes, resendSignUpCode, signIn, signOut, signUp, updateUserAttributes } from "aws-amplify/auth";
+
 import moment from "moment";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { ConfirmOtpCode, UserRegisteration } from "../../domain/user";
+import { UserRegisteration } from "../../domain/user";
 
-Amplify.configure(config);
+Amplify.configure(config, { ssr: true });
 
 export const useAuth = () => {
 	const [form, setForm] = useState<UserRegisteration | null>(null);
 	const [error, setError] = useState<UserRegisteration | null>(null);
 	const [loading, setLoading] = useState<boolean>(false);
-	const [confirmOtp, setConfirmOtp] = useState<ConfirmOtpCode>();
+	const [confirmOtp, setConfirmOtp] = useState<string>("");
 	const dispatch = useAppDispatch();
 
 	const router = useRouter();
@@ -46,54 +47,32 @@ export const useAuth = () => {
 		});
 	}
 
-	function handleChangeConfirmationCode(name: keyof ConfirmOtpCode, value: string) {
-		if (value === "") {
-			setError((prev: any) => {
-				return {
-					...prev,
-					[name]: `${name} is required!!!`,
-				};
-			});
-			return;
-		}
-		setError((prev: any) => {
-			return {
-				...prev,
-				[name]: null,
-			};
-		});
-		setConfirmOtp((prev: any) => {
-			return {
-				...prev,
-				[name]: value,
-			};
-		});
-	}
-
 	function getUserData() {
-		fetchUserAttributes()
+		dispatch(setLoadingUserData(true));
+		return fetchUserAttributes()
 			.then((user) => {
-				dispatch(
-					setUser({
-						email: user.email,
-						allergies: user["custom:allergies"],
-						country: user["custom:country"],
-						disease: user["custom:disease"],
-						gender: user["custom:gender"],
-						goals: user["custom:goals"],
-						height: user["custom:height"],
-						name: user.name,
-						phoneNumber: user.phone_number,
-						userName: user.nickname,
-						vegeterian: user["custom:vegeterian"],
-						weight: user["custom:weight"],
-						dob: user["custom:dob"],
-						age: getAge(user["custom:dob"]),
-					})
-				);
+				const newUser = {
+					email: user.email,
+					allergies: user["custom:allergies"],
+					country: user["custom:country"],
+					disease: user["custom:disease"],
+					gender: user["custom:gender"],
+					goals: user["custom:goals"],
+					height: user["custom:height"],
+					name: user.name,
+					phoneNumber: user.phone_number,
+					userName: user.nickname,
+					vegeterian: user["custom:vegeterian"],
+					weight: user["custom:weight"],
+					dob: user["custom:dob"],
+					age: getAge(user["custom:dob"]),
+				};
+				dispatch(setUser(newUser));
+				dispatch(setLoadingUserData(false));
+				return newUser;
 			})
 			.catch((error) => {
-				toast(error.message);
+				dispatch(setLoadingUserData(false));
 			});
 	}
 
@@ -138,7 +117,7 @@ export const useAuth = () => {
 				});
 				toast("An otp as been sent to your registered number, kindly verify your email.");
 				if (nextStep.signUpStep === "CONFIRM_SIGN_UP") {
-					router.push("/confirm-otp");
+					router.push(`/confirm-otp?email=${form.email}`);
 				}
 				setLoading(false);
 			} else {
@@ -172,9 +151,9 @@ export const useAuth = () => {
 		}
 	}
 
-	function resendOtp() {
-		if (confirmOtp?.userName) {
-			resendSignUpCode({ username: confirmOtp.userName })
+	function resendOtp(email: string) {
+		if (email) {
+			resendSignUpCode({ username: email })
 				.then((data) => {})
 				.catch((error: any) => {
 					toast(error.message);
@@ -189,17 +168,20 @@ export const useAuth = () => {
 		return age;
 	}
 
-	async function confirmOtpSignUp(userDetails: Pick<UserRegisteration, "email" | "password">) {
+	async function confirmOtpSignUp(email: string) {
 		setLoading(true);
 		try {
 			if (confirmOtp) {
 				const { isSignUpComplete, nextStep } = await confirmSignUp({
-					username: userDetails.email,
-					confirmationCode: confirmOtp?.confirmationCode,
+					username: email,
+					confirmationCode: confirmOtp,
 				});
 				setLoading(false);
 				if (nextStep.signUpStep === "COMPLETE_AUTO_SIGN_IN") {
-					signIn({ username: userDetails?.email, password: userDetails?.password })
+					const user = localStorage.getItem(INPUTS.signupData);
+					const parsedUser = user && JSON.parse(user);
+
+					signIn({ username: parsedUser?.email, password: parsedUser?.password })
 						.then(({}) => {
 							router.push("/goal-form");
 							toast("Email address confirmed successfully");
@@ -222,10 +204,10 @@ export const useAuth = () => {
 		loading,
 		confirmSignUp,
 		form,
-		handleChangeConfirmationCode,
 		signout,
 		getUserData,
 		resendOtp,
 		updateUserProfile,
+		setConfirmOtp,
 	};
 };

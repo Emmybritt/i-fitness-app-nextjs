@@ -1,6 +1,7 @@
+"use client";
 import { Image } from "antd";
 
-export default function AuthLayout({ children }: { children: React.ReactNode }) {
+function AuthLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<div className="grid grid-cols-1 lg:grid-cols-2">
 			<Image
@@ -14,3 +15,4 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 		</div>
 	);
 }
+export default AuthLayout;
