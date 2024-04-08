@@ -1,5 +1,4 @@
 "use client";
-import { withAuthenticator } from "@aws-amplify/ui-react";
 import { Image } from "antd";
 
 function AuthLayout({ children }: { children: React.ReactNode }) {
@@ -16,4 +15,4 @@ function AuthLayout({ children }: { children: React.ReactNode }) {
 		</div>
 	);
 }
-export default withAuthenticator(AuthLayout);
+export default AuthLayout;
