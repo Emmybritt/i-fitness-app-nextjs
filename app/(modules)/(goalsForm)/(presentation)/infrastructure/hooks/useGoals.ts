@@ -8,6 +8,7 @@ export const useGoals = () => {
 	const [form, setForms] = useState<UserGoals>();
 	const [errors, setErrors] = useState<UserGoals>();
 	const [current, setCurrent] = useState(0);
+	const [isLoading, setLoading] = useState<boolean>(false);
 	const { updateUserProfile } = useAuth();
 	const router = useRouter();
 
@@ -21,12 +22,17 @@ export const useGoals = () => {
 
 	function submit() {
 		if (form?.vegeterian && form?.country && form?.allergies && form.disease && form.goals) {
+			setLoading(true);
 			updateUserProfile(form)
 				.then((data: any) => {
 					toast("Registeration Completed");
 					router.push("/dashboard");
+					setLoading(false);
 				})
-				.catch((error: Error) => toast(error.message));
+				.catch((error: Error) => {
+					toast(error.message);
+					setLoading(false);
+				});
 		} else {
 			toast("Some required fields are missing!!!");
 		}
@@ -58,5 +64,6 @@ export const useGoals = () => {
 		submit,
 		current,
 		errors,
+		isLoading,
 	};
 };

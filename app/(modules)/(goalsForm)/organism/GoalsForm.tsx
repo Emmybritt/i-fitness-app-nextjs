@@ -6,7 +6,7 @@ import { CustomInput } from "@app/app/common/components/atoms/Input/Input";
 import { useGoals } from "../(presentation)/infrastructure/hooks/useGoals";
 
 const GoalsForm = () => {
-	const { current, next, errors, handleChange, submit } = useGoals();
+	const { current, next, errors, handleChange, submit, isLoading } = useGoals();
 	const steps = () => {
 		return [
 			{
@@ -103,7 +103,7 @@ const GoalsForm = () => {
 				<p className="text-center mb-[3rem]">Kindly fill the form below as this will help to curate the right diet and workout plan for you</p>
 				{steps()[current].content}
 				<Button
-					label={current === 1 ? "Continue" : "Next"}
+					label={isLoading ? "Please Wait..." : current === 1 ? "Continue" : "Next"}
 					onClick={() => {
 						if (current === 1) {
 							submit();
