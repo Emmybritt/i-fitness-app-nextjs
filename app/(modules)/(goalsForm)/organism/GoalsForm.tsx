@@ -35,13 +35,13 @@ const GoalsForm = () => {
 								error={errors?.weight}
 								label="Weight(KG)"
 								onChange={(e) => handleChange("weight", e.target.value)}
-								placeholder="Enter your weight in kg"
+								placeholder="Enter your weight in kg e.g 75"
 							/>
 							<CustomInput
-								label="Height(m)"
+								label="Height(cm)"
 								error={errors?.height}
 								onChange={(e) => handleChange("height", e.target.value)}
-								placeholder="Enter your height in m"
+								placeholder="Enter your height in cm e.g 57"
 							/>
 						</div>
 					</>
@@ -65,6 +65,12 @@ const GoalsForm = () => {
 							placeholder="Enter your Country"
 							error={errors?.country}
 							onChange={(e) => handleChange("country", e.target.value)}
+						/>
+						<CustomInput
+							label="State"
+							placeholder="Enter your state"
+							error={errors?.country}
+							onChange={(e) => handleChange("state", e.target.value)}
 						/>
 						<CustomInput
 							label="Allergy (enter none if no allergies)"
@@ -94,9 +100,7 @@ const GoalsForm = () => {
 		<div className="max-w-[95%] md:max-w-[80%] lg:max-w-[50%] px-[1rem] md:px-[3rem] py-[3rem] bg-white mx-auto flex-col flex items-center rounded-[3rem]">
 			<div className="w-full flex items-center flex-col justify-center">
 				<h1 className="text-normal font-semibold text-center">Account Created Successfully</h1>
-				<p className="text-center mb-[3rem]">
-					Kindly fill the form below as this will help to curate the right diet and workout plan for you
-				</p>
+				<p className="text-center mb-[3rem]">Kindly fill the form below as this will help to curate the right diet and workout plan for you</p>
 				{steps()[current].content}
 				<Button
 					label={current === 1 ? "Continue" : "Next"}

@@ -1,4 +1,6 @@
 "use client";
+import { useGetRecommendedWorkout } from "@app/app/(modules)/(dashboard)/infrastructure/hooks/useGetRecommendedWorkout";
+import { useAppSelector } from "@app/app/(modules)/core/infrastructure/store";
 import Card from "@app/app/common/components/atoms/Card/Card";
 import { BarchartOption, PiechartOption } from "@app/app/common/constants/data";
 import ReactECharts from "echarts-for-react";
@@ -7,10 +9,11 @@ import PostWorkSessions from "../../../molecules/PostWorkSessions";
 import RecommendedVideos from "../../../molecules/RecommendedVideos";
 import TodaysWorkout from "../../../molecules/TodaysWorkout";
 import UserAchievements from "../../../molecules/UserAchievemets";
-import { useGetRecommendedWorkout } from "@app/app/(modules)/(dashboard)/infrastructure/hooks/useGetRecommendedWorkout";
 
 const Workout = () => {
-	const { workouts } = useGetRecommendedWorkout();
+	const user = useAppSelector((state) => state.userSlice);
+
+	const { workouts } = useGetRecommendedWorkout(user.user);
 
 	return (
 		<div className="w-full px-[1.5rem] sm:px-[4rem]">

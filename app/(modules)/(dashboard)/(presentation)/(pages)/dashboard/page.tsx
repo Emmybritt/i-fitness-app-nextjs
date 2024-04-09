@@ -16,13 +16,13 @@ import { RecommendedMeal } from "@app/app/(modules)/(goalsForm)/(presentation)/d
 const Dashboard = () => {
 	const user = useAppSelector((state) => state.userSlice);
 	const [recommendedMeal, setRecommendedMeal] = useState<RecommendedMeal[] | null>(null);
-	const { extractData } = useOpenAiApi();
+	const { extractData } = useOpenAiApi(user.user);
 	const { data, isLoading, isFetching } = useGetTodaysMealRecommedationQuery({
 		model: "gpt-3.5-turbo-0125",
 		messages: [
 			{
 				role: "assistant",
-				content: "Diet Recommendation System:\nI need an array of 3 objects representing recommended meals, strictly following this array of object data structure without changing the properties to camel casing and stringify the array of objects: [{name: 'name of food', type: 'breakfast', addons: '+ Grilled Turkey and Salad'}]\nCriteria:\n- Age: 25\n- Gender: Male\n- Weight: 75kg\n- Height: 155cm\n- Diet: Vegetarian\n- Disease: None\n- Region: Nigeria\n- State: Lagos\n- Allergies: None",
+				content: `Diet Recommendation System:\nI need an array of 3 objects representing recommended meals, strictly following this array of object data structure without changing the properties to camel casing and stringify the array of objects: [{name: 'name of food', type: 'breakfast', addons: '+ Grilled Turkey and Salad'}]\nCriteria:\n- Age: ${user.user?.age}\n- Gender: ${user.user?.gender}\n- Weight: ${user.user?.weight}kg\n- Height: ${user.user?.height}cm\n- Diet: Vegetarian ${user.user?.vegeterian}\n- Disease: ${user.user?.disease}\n- Region: ${user.user?.country}\n- State: ${user.user?.state}\n- Allergies: ${user.user?.allergies}`,
 			},
 		],
 		max_tokens: 2000,

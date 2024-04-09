@@ -5,6 +5,7 @@ export interface UserGoals {
 	height: string;
 	vegeterian: string;
 	country: string;
+	state: string;
 	allergies: string;
 	disease: string;
 	goals: string;
