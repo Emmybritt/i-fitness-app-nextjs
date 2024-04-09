@@ -5,9 +5,12 @@ import { caloriesIntake } from "@app/app/common/constants/data";
 import CloseByRestaurant from "../../../molecules/CloseByRestaurant";
 import DashboardHeader from "../../../molecules/DashboardHeader";
 import TodaysMeal from "../../../molecules/TodaysMeal";
+import { useAppSelector } from "@app/app/(modules)/core/infrastructure/store";
 
 const DietPlan = () => {
-	const { restaurant } = useOpenAiApi();
+	const user = useAppSelector((state) => state.userSlice);
+
+	const { restaurant } = useOpenAiApi(user.user);
 
 	return (
 		<div className="w-full px-[1.5rem] sm:px-[2rem] md:px-[4rem]">

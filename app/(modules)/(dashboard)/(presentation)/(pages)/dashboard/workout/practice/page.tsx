@@ -7,11 +7,13 @@ import { Button } from "@app/app/common/components/atoms/Button/Button";
 import { Image, Spin } from "antd";
 import { useGetRecommendedWorkout } from "@app/app/(modules)/(dashboard)/infrastructure/hooks/useGetRecommendedWorkout";
 import { RecommededWorkouts } from "@app/app/(modules)/(goalsForm)/(presentation)/domain/userGoals";
+import { useAppSelector } from "@app/app/(modules)/core/infrastructure/store";
 
 const WorkoutPratice = () => {
 	const [currentWorkoutIndex, setCurrentWorkoutIndex] = useState(1);
+	const user = useAppSelector((state) => state.userSlice);
 	const [currentWorkout, setCurrentWorkout] = useState<RecommededWorkouts | null>(null);
-	const { workouts, isFetching } = useGetRecommendedWorkout();
+	const { workouts, isFetching } = useGetRecommendedWorkout(user.user);
 	useEffect(() => {
 		if (workouts) {
 			setCurrentWorkout(workouts[currentWorkoutIndex]);
@@ -41,13 +43,7 @@ const WorkoutPratice = () => {
 				<Card className="w-[100%] h-[351px]">
 					<Button label="20:00" className="bg-[#F2ECFE] w-[113px] text-[#6938EF]" />
 					<div className="flex items-center">
-						<Image
-							src="/userExcersice.png"
-							preview={false}
-							height={200}
-							className="w-[203.66px]"
-							alt="back stretch icon"
-						/>
+						<Image src="/userExcersice.png" preview={false} height={200} className="w-[203.66px]" alt="back stretch icon" />
 						<div className="space-y-2">
 							<h3 className="text-[32px] font-semibold">{currentWorkout?.name}</h3>
 							<p>{currentWorkout?.rounds}</p>
@@ -57,12 +53,7 @@ const WorkoutPratice = () => {
 					</div>
 				</Card>
 				<div className="mt-[2rem]">
-					<TodaysWorkout
-						showTitle={false}
-						workouts={workouts}
-						setWorkout={setCurrentWorkout}
-						setCurrentIndex={setCurrentWorkoutIndex}
-					/>
+					<TodaysWorkout showTitle={false} workouts={workouts} setWorkout={setCurrentWorkout} setCurrentIndex={setCurrentWorkoutIndex} />
 				</div>
 			</div>
 		</div>
