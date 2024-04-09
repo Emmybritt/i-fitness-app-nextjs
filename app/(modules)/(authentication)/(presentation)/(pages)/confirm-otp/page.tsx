@@ -38,10 +38,12 @@ const ConfirmOTp = () => {
 	);
 };
 
-export function ConfirmOtpComponent() {
+function ConfirmOtpComponent() {
 	return (
 		<Suspense>
 			<ConfirmOTp />
 		</Suspense>
 	);
 }
+
+export default ConfirmOtpComponent;
