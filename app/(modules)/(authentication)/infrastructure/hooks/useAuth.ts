@@ -115,7 +115,7 @@ export const useAuth = () => {
 						autoSignIn: true,
 					},
 				});
-				toast("An otp as been sent to your registered number, kindly verify your email.");
+				toast("An otp as been sent to your registered number, please kindly verify your email.");
 				if (nextStep.signUpStep === "CONFIRM_SIGN_UP") {
 					router.push(`/confirm-otp?email=${form.email}`);
 				}
