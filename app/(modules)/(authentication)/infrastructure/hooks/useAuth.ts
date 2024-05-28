@@ -1,5 +1,5 @@
 import { UserGoals } from "@app/app/(modules)/(goalsForm)/(presentation)/domain/userGoals";
-import { setUser, setLoadingUserData } from "@app/app/(modules)/core/infrastructure/api/userSlice";
+import { setLoadingUserData, setUser } from "@app/app/(modules)/core/infrastructure/api/userSlice";
 import { useAppDispatch } from "@app/app/(modules)/core/infrastructure/store";
 import config from "@app/app/amplifyconfiguration.json";
 import { INPUTS } from "@app/app/common/constants/data";
